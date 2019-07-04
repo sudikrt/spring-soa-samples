@@ -1,0 +1,60 @@
+<aura:component controller="AccountShowCaseCntl">
+	
+    <aura:attribute name="hasError" type="Boolean" default="false"/>
+	<aura:attribute name="message" type="String" default="Loading records..."/>
+    <aura:attribute name="acccountList" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:card iconName="standard:account" title="Accounts">
+        <div class="slds-p-around_small slds-m-around_small">
+            <aura:if isTrue="{!v.acccountList.length > 0}">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Account Name">Account Name</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Phone">Phone</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Type">Type</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Last modified date">Last modified date</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.acccountList}" var="eachAccount" indexVar="index"> 
+                            <tr class="slds-hint-parent">
+                                <th data-label="Account Name" scope="row">
+                                    <div class="slds-truncate" title="{!eachAccount.Name}">
+                                        <a href="javascript:void(0);" tabindex="-1">{!eachAccount.Name}</a>
+                                    </div>
+                                </th>
+                                <td data-label="Phone">
+                                    <div class="slds-truncate" title="{!eachAccount.Phone}">
+                                        <lightning:formattedPhone value="{!eachAccount.Phone}" />
+                                    </div>
+                                </td>
+                                <td data-label="Type">
+                                    <div class="slds-truncate" title="{!eachAccount.Type}">{!eachAccount.Type}</div>
+                                </td>
+                                <td data-label="Last modified date">
+                                    <div class="slds-truncate" title="{!eachAccount.LastModifiedDate}">
+                                        <lightning:formattedDateTime value="{!eachAccount.LastModifiedDate}"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+                <aura:set attribute="else">
+                	{!v.message}
+                </aura:set>
+            </aura:if>
+        </div>
+    </lightning:card>
+    
+</aura:component>
