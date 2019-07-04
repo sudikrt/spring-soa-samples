@@ -20,7 +20,6 @@ public with sharing class ContactTriggerService {
         }
         
         if (accountIdSet.size() > 0) {
-            System.debug('*res : ' );
             List<Account> accToUpdate = new List<Account> ();
             for (Account res : [SELECT Id, (SELECT Id FROM Contacts) FROM Account WHERE Id in : accountIdSet ]) {
                 accToUpdate.add (new Account (
